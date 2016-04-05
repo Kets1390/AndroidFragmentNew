@@ -18,6 +18,8 @@ package com.example.ketan.androidfragmentnew;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +33,9 @@ public class HomeListFragment extends Fragment {
 	ListView listView;
 	private ListAdapter adapter;
 	private MyListFragmentListener listener;
+	private FragmentManager fragmentManager;
 
+	private ResultListFragment resultListFragment;
 	public interface MyListFragmentListener {
 		public void onItemClickedListener(String valueClicked);
 	}
@@ -41,7 +45,7 @@ public class HomeListFragment extends Fragment {
 			Bundle savedInstanceState) {
 
 		view = inflater.inflate(R.layout.home_fragment, null);
-
+		fragmentManager = getActivity().getSupportFragmentManager();
 		initViews();
 
 		return view;
@@ -61,12 +65,16 @@ public class HomeListFragment extends Fragment {
 			public void onItemClick(AdapterView<?> adapterView, View view,
 					int position, long id) {
 				
-				if (listener != null) {
-					listener.onItemClickedListener(adapter.getItem(position)
-							.toString());
-				} else {
-					throw new IllegalArgumentException("Please Pass Listener");
-				}
+
+					FragmentTransaction ft = fragmentManager.beginTransaction();
+
+					resultListFragment = new ResultListFragment();
+					ft.add(R.id.container, resultListFragment);
+					TextClass.fragmentStack.lastElement().onPause();
+					ft.hide(TextClass.fragmentStack.lastElement());
+					TextClass.fragmentStack.push(resultListFragment);
+					ft.commit();
+
 			}
 		});
 	}

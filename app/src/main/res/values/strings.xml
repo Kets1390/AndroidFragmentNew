@@ -1,15 +1,15 @@
 <resources>
     <string name="app_name">AndroidFragmentNew</string>
     <string-array name="firstFragmentEntries">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-        <item>8</item>
-    </string-array>
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+    <item>4</item>
+    <item>5</item>
+    <item>6</item>
+    <item>7</item>
+    <item>8</item>
+</string-array>
     <string-array name="secondFragmentEntries">
         <item>11</item>
         <item>22</item>
@@ -19,5 +19,25 @@
         <item>66</item>
         <item>77</item>
         <item>88</item>
+    </string-array>
+    <string-array name="more1FragmentEntries">
+        <item>111</item>
+        <item>222</item>
+        <item>333</item>
+        <item>444</item>
+        <item>555</item>
+        <item>666</item>
+        <item>777</item>
+        <item>888</item>
+    </string-array>
+    <string-array name="more2FragmentEntries">
+        <item>1111</item>
+        <item>2222</item>
+        <item>3333</item>
+        <item>4444</item>
+        <item>5555</item>
+        <item>6666</item>
+        <item>7777</item>
+        <item>8888</item>
     </string-array>
 </resources>

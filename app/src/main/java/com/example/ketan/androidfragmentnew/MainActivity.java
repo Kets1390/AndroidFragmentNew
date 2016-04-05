@@ -23,14 +23,17 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.ketan.androidfragmentnew.HomeListFragment.MyListFragmentListener;
 
-public class MainActivity extends FragmentActivity implements
-		MyListFragmentListener {
+public class MainActivity extends AppCompatActivity
+		 {
 
-	private Stack<Fragment> fragmentStack;
+
 	private FragmentManager fragmentManager;
 	private HomeListFragment homeListFragment;
 	private ResultListFragment resultListFragment;
@@ -40,19 +43,19 @@ public class MainActivity extends FragmentActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		fragmentStack = new Stack<Fragment>();
+		TextClass.fragmentStack.clear();
 
 		homeListFragment = new HomeListFragment();
-		homeListFragment.registerForListener(this);
+		//homeListFragment.registerForListener(this);
 
 		fragmentManager = getSupportFragmentManager();
 		FragmentTransaction ft = fragmentManager.beginTransaction();
 		ft.add(R.id.container, homeListFragment);
-		fragmentStack.push(homeListFragment);
+		TextClass.fragmentStack.push(homeListFragment);
 		ft.commit();
 	}
 
-	@Override
+	/*@Override
 	public void onItemClickedListener(String valueClicked) {
 		Toast.makeText(this, valueClicked, Toast.LENGTH_LONG).show();
 
@@ -60,25 +63,44 @@ public class MainActivity extends FragmentActivity implements
 
 		resultListFragment = new ResultListFragment();
 		ft.add(R.id.container, resultListFragment);
-		fragmentStack.lastElement().onPause();
-		ft.hide(fragmentStack.lastElement());
-		fragmentStack.push(resultListFragment);
+		TextClass.fragmentStack.lastElement().onPause();
+		ft.hide(TextClass.fragmentStack.lastElement());
+		TextClass.fragmentStack.push(resultListFragment);
 		ft.commit();
-	}
+	}*/
 
 	@Override
 	public void onBackPressed() {
 
-		if (fragmentStack.size() == 2) {
+		if (TextClass.fragmentStack.size() !=1) {
 			FragmentTransaction ft = fragmentManager.beginTransaction();
-			fragmentStack.lastElement().onPause();
-			ft.remove(fragmentStack.pop());
-			fragmentStack.lastElement().onResume();
-			ft.show(fragmentStack.lastElement());
+			TextClass.fragmentStack.lastElement().onPause();
+			ft.remove(TextClass.fragmentStack.pop());
+			TextClass.fragmentStack.lastElement().onResume();
+			ft.show(TextClass.fragmentStack.lastElement());
 			ft.commit();
 		} else {
 			super.onBackPressed();
 		}
 	}
 
-}
+			 @Override
+			 public boolean onCreateOptionsMenu(Menu menu) {
+				 getMenuInflater().inflate(R.menu.main_menu,menu);
+				 return super.onCreateOptionsMenu(menu);
+			 }
+
+			 @Override
+			 public boolean onOptionsItemSelected(MenuItem item) {
+
+				 FragmentTransaction ft = fragmentManager.beginTransaction();
+
+				 Add_Data_Fragment resultListFragment = new Add_Data_Fragment();
+				 ft.add(R.id.container, resultListFragment);
+				 TextClass.fragmentStack.lastElement().onPause();
+				 ft.hide(TextClass.fragmentStack.lastElement());
+				 TextClass.fragmentStack.push(resultListFragment);
+				 ft.commit();
+				 return true;
+			 }
+		 }

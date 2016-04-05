@@ -18,6 +18,8 @@ package com.example.ketan.androidfragmentnew;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,13 +35,16 @@ public class ResultListFragment extends Fragment {
 	ListView listView;
 
 	private ListAdapter adapter;
+	private FragmentManager fragmentManager;
+
+	private More1_Fragment resultListFragment;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
 		view = inflater.inflate(R.layout.result_fragment, null);
-
+		fragmentManager = getActivity().getSupportFragmentManager();
 		initViews();
 
 		return view;
@@ -57,6 +62,15 @@ public class ResultListFragment extends Fragment {
 				Toast.makeText(getActivity(),
 						adapter.getItem(position).toString(), Toast.LENGTH_LONG)
 						.show();
+				FragmentTransaction ft = fragmentManager.beginTransaction();
+
+				resultListFragment = new More1_Fragment();
+				ft.add(R.id.container, resultListFragment);
+				TextClass.fragmentStack.lastElement().onPause();
+				ft.hide(TextClass.fragmentStack.lastElement());
+				TextClass.fragmentStack.push(resultListFragment);
+				ft.commit();
+
 			}
 		});
 	}
