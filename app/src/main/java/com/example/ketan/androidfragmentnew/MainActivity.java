@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity
 
 		if (TextClass.fragmentStack.size() !=1) {
 			FragmentTransaction ft = fragmentManager.beginTransaction();
+			ft.setCustomAnimations(R.anim.back_exit, R.anim.back_enter,R.anim.back_pop_exit , R.anim.back_pop_enter);
 			TextClass.fragmentStack.lastElement().onPause();
 			ft.remove(TextClass.fragmentStack.pop());
 			TextClass.fragmentStack.lastElement().onResume();
@@ -96,6 +97,7 @@ public class MainActivity extends AppCompatActivity
 				 FragmentTransaction ft = fragmentManager.beginTransaction();
 
 				 Add_Data_Fragment resultListFragment = new Add_Data_Fragment();
+				 ft.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
 				 ft.add(R.id.container, resultListFragment);
 				 TextClass.fragmentStack.lastElement().onPause();
 				 ft.hide(TextClass.fragmentStack.lastElement());

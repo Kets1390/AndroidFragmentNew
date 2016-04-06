@@ -65,6 +65,7 @@ public class ResultListFragment extends Fragment {
 				FragmentTransaction ft = fragmentManager.beginTransaction();
 
 				resultListFragment = new More1_Fragment();
+				ft.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
 				ft.add(R.id.container, resultListFragment);
 				TextClass.fragmentStack.lastElement().onPause();
 				ft.hide(TextClass.fragmentStack.lastElement());
